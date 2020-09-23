@@ -52,8 +52,8 @@ char menu_secundario(){
 
 }
 
-char menu_jogar_inicio(){
-    char aux;
+int menu_jogar_inicio(){
+	int aux;
     printf("Jogo de Dominó (Nitro Fin)\n\n");
     printf("Selecione o numero de jogadores: \n");
     printf("(1) - Apenas 1 jogador\n");
