@@ -53,12 +53,39 @@ char menu_secundario(){
 }
 
 int menu_jogar_inicio(){
-	int aux;
+    //int
+    int aux;
     printf("Jogo de Dominó (Nitro Fin)\n\n");
-    printf("Selecione o numero de jogadores: \n");
+    printf("Selecione o numero de jogadores para distribuir as pecas: \n");
     printf("(1) - Apenas 1 jogador\n");
     printf("(2) - 2 Jogadores\n");
-    aux = getchar();
+    scanf("%d", &aux);
 
     return aux;
+}
+
+int menu_jogar(int is_distribuir){
+    int aux;
+    printf("\n==========================\n");
+    printf("(1) - Iniciar Jogo \n");
+    printf("(2) - Distribuir as pecas\n");
+    printf("(3) - Voltar\n");
+    if(is_distribuir ==0){
+        printf("Pecas nao distribuidas ainda!");
+    }else{
+        printf("Pecas ja distribuidas");
+    }
+    scanf("%d", &aux);
+
+    return aux;
+}
+
+void erro_distribuicao_pecas(){
+    printf("\nAs pecas nao foram distribuidas ainda! Impossivel comecar a jogar\n");
+}
+
+void comecou_jogo(tipo_peca p[28], tipo_mesa mesa){
+    printf("\n==================================\n");
+    printf("Comprar: [x|x]");
+    printf("\n\n");
 }

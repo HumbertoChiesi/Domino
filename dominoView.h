@@ -15,5 +15,8 @@ void erro();
 void mostrar_pecas(tipo_peca p[28]);
 char menu_secundario();
 int menu_jogar_inicio();
+int menu_distribuir_pecas();
+int menu_jogar(int is_distribuir);
+void erro_distribuicao_pecas();
 
 #endif 
