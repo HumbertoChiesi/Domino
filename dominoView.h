@@ -18,5 +18,10 @@ int menu_jogar_inicio();
 int menu_distribuir_pecas();
 int menu_jogar(int is_distribuir);
 void erro_distribuicao_pecas();
+void comecou_jogo(tipo_peca p[28], tipo_mesa mesa);
+int jogo_menu();
+int mostrar_pecas_jogo(tipo_peca p[28], int jogador);
+
+void jodada_sucedida(int jogada);
 
 #endif 

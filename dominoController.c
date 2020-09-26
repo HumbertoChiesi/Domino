@@ -27,7 +27,6 @@ void executar_domino(){
         limpar_buffer();
         caux = menu_inicial();
 
-
         switch (caux)
         {
         case '1':
@@ -43,6 +42,7 @@ void executar_domino(){
 
         case '3':
 
+            embaralhar(aux, 28);
             limpar_buffer();
             char caux2;
 
@@ -59,7 +59,8 @@ void executar_domino(){
 
                 case '1':
 
-                    //algum outro menu para distribuir as pecas e criar a mesa
+                    
+                    
                     while (1){
                         limpar_buffer();
                         mesa.njogadores = menu_jogar_inicio();
@@ -70,20 +71,76 @@ void executar_domino(){
                         }                 
 
                     }
-
+                    int distribuir = 0;
                     int jogar;
-                    int is_distribuir = 0;
                     while (1){
-                        jogar = menu_jogar(is_distribuir);
-                        if(jogar == 1 && is_distribuir == 1){
+                        
+                        
+                        limpar_buffer();
+                        jogar = menu_jogar(distribuir);
+                        if(jogar == 1 && distribuir == 1){
+
+                            int peca_mesa_inicio;
+                            peca_mesa_inicio = primeira_peca(aux, &mesa);
+                            mudar_posicao(aux, peca_mesa_inicio, 3);
+
+                            
+
+                            int opc_jogo;
+                            int auxiliar_par =4;
+                            int auxiliar_impar = 5;
+                            while (1){
+                                comecou_jogo(aux, mesa);
+                                limpar_buffer();
+                                opc_jogo = jogo_menu();
+                                if( opc_jogo == 1){
+                                    int escolha;
+                                    limpar_buffer();
+                                    escolha = mostrar_pecas_jogo(aux, 1);              
+                                    if(escolha == 0){
+                                        comprar(aux, 1);
+                                    
+                                    }else{
+                                        int jogada_sucesso;
+                                        limpar_buffer();
+                                        jogada_sucesso = jogada(&mesa, aux, 1, escolha);
+                                        jodada_sucedida(jogada_sucesso);
+                                        
+                                    }
+                                    
+                                }else if (opc_jogo == 2){
+                                    int escolha;
+                                    limpar_buffer();
+                                    escolha = mostrar_pecas_jogo(aux, 2);
+                                    if(escolha == 0){
+                                        comprar(aux, 2);
+                                        
+                                    }else{
+                                        int jogada_sucesso;
+                                        limpar_buffer();
+                                        jogada_sucesso = jogada(&mesa, aux, 2, escolha);
+                                        jodada_sucedida(jogada_sucesso);
+                                        
+                                    }
+
+                                }else if (opc_jogo == 3){
+                                    break;
+                                }else{
+                                    erro();
+                                }
+                                
+                            }
+                            
+                            
 
                             
                             //funcao vai ter q achar qual peca de qual jogador vai pra mesa
                             //Chamar a mesa com a peca no meio ja
-                            
-                        }else if (jogar == 2 && is_distribuir ==0){
 
-                            is_distribuir == 1;
+                            
+                        }else if (jogar == 2){
+
+                            distribuir = 1;
                             distribuir_pecas(aux);
 
                         }else if (jogar == 3){
@@ -116,6 +173,9 @@ void executar_domino(){
                     //imprimir as regras do jogo
                     break;
                 
+                case '5':
+                    break;
+                
                 default:
                     erro();
                     break;
@@ -138,7 +198,6 @@ void executar_domino(){
 }
 
 void limpar_buffer(){
-    setbuf(stdin, NULL);
     int ch;
     while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){}
 }

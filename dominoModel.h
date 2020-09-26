@@ -18,7 +18,7 @@ Descricao: Arquivo de biblioteca com as funcoes disponiveis para o model. Parte 
 struct pecas{
         int lado1;
         int lado2;
-        char posicao; //0 esta disponivel para compra //1 esta com o primeiro jogador //2 esta com o segundo jogador //3 esta no centro da mesa // 4 ate 2*n , ou seja, os numeros pares a partir do 4 estao do lado direito da mesa em ordem crescente // 5 ate 2*n +1, ou seja, os impares estao do lado esquerdo em ordem crescente
+        int posicao; //0 esta disponivel para compra //1 esta com o primeiro jogador //2 esta com o segundo jogador //3 esta no centro da mesa // 4 ate 2*n , ou seja, os numeros pares a partir do 4 estao do lado direito da mesa em ordem crescente // 5 ate 2*n +1, ou seja, os impares estao do lado esquerdo em ordem crescente
 };
 
 typedef struct pecas tipo_peca;
@@ -39,6 +39,12 @@ void embaralhar(tipo_peca *vet, int tamanho);
 
 void distribuir_pecas(tipo_peca pecas_embaralhadas[28]);
 
-int primeira_peca(tipo_peca p[28]);
+int primeira_peca(tipo_peca p[28], tipo_mesa *m);
+
+void mudar_posicao(tipo_peca p[28], int indice, int posicao);
+
+void comprar(tipo_peca p[28], int jogador);
+
+int jogada(tipo_mesa *mesa, tipo_peca p[28], int jogador, int escolha);
 
 #endif 
