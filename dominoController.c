@@ -35,7 +35,6 @@ void jogar(peca p[], mesa *mesa){
 
 
     do{
-        printf("%d %d \n", mesa->lado_impar, mesa->lado_par);
         comecou_jogo(p, *mesa, aux_peca_inicial);
         limpar_buffer();
         opc_jogo = jogo_menu();
