@@ -112,8 +112,7 @@ int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
             contador_par++;
         }
     }
-
-    printf("[%d|%d] ",p[peca_jogada].lado1, p[peca_jogada].lado2);
+    
     if(p[peca_jogada].lado1 == m->lado_impar){
         trocar_lado_peca(&p[peca_jogada]);
         m->lado_impar = p[peca_jogada].lado1;
