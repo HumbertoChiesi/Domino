@@ -1,5 +1,5 @@
 /*
-Arquivo Main.c: 
+Arquivo Main.c:
 Grupo: Matheus Madureira Fortunato, Humberto Chiesi Neto, Gustavo Fernandes Pacheco, Gustavo Fernandes Ramos Julio Ferreira
 Descricao: implementacao das funcoes do view.h.
 
@@ -13,7 +13,7 @@ char menu_inicial(){
     printf("\n============================\n");
     printf("Bem-vind ao Domino Nitro Fin\n");
     printf("============================\n");
-    printf("\n (1) - Ver as pecas ordenadas\n (2) - Ver as pecas na embaralhadas\n (3) - Comecar a jogar \n (4) - Sair\n\n");
+    printf("\n (1) - Ver as pecas ordenadas\n (2) - Ver as pecas na embaralhadas\n (3) - Comecar a jogar \n (4) - Sair\n");
     aux = getchar();
     return aux;
 }
@@ -22,7 +22,17 @@ void erro(){
     printf("\nOpcao Invalida. Escolha novamente uma das opcoes disponiveis.\n");
 }
 
-void mostrar_pecas(tipo_peca p[28]){
+void mostrar_pecas_ordenadas(){
+    int i, j;
+    for(i=0; i<7; ++i){
+        for(j=i; j <7 ; ++j){
+            printf("[%d|%d] ", i, j);
+        }
+        printf("\n");
+    }
+}
+
+void mostrar_pecas(peca p[28]){
     int indice =0;
     for(int i =1; i<=4; i++){
         for(int j= 1; j<=7; j++){
@@ -32,7 +42,7 @@ void mostrar_pecas(tipo_peca p[28]){
         }
         printf("\n");
     }
-    
+
 }
 
 char menu_secundario(){
@@ -84,17 +94,17 @@ void erro_distribuicao_pecas(){
     printf("\nAs pecas nao foram distribuidas ainda! Impossivel comecar a jogar\n");
 }
 
-void comecou_jogo(tipo_peca p[28], tipo_mesa mesa){
-    printf("\n\nComprar: [x|x]\n");
+void comecou_jogo(peca p[28], mesa mesa, int meio){
+    printf("\nMesa:\n");
     int pp = 0, nPP=0, nPI=0, n, r, i;
-    while (p[pp].posicao != 3){pp++;}
+    while (p[pp].status != 3){pp++;}
     int m1=p[pp].lado1, m2=p[pp].lado2;
-    tipo_peca pecas_par[28];
-    tipo_peca pecas_impar[28];
+    peca pecas_par[28];
+    peca pecas_impar[28];
 
     for (int i = 0; i < 28; i++) {
         r=0;
-        n = p[i].posicao;
+        n = p[i].status;
         if((n%2)==0 && n>=4){
             r = (n/2)-2;
             pecas_par[r]=p[i];
@@ -128,16 +138,16 @@ void comecou_jogo(tipo_peca p[28], tipo_mesa mesa){
 
 int jogo_menu(){
     int aux;
-    printf("\n\n(1) - Pecas Jogador 1\n(2) - Pecas Jogador 2\n(3) - Voltar\n");
+    printf("\n(1) - Pecas Jogador 1\n(2) - Pecas Jogador 2\n(3) - Voltar\n");
     scanf("%d", &aux);
     return aux;
 }
 
-int mostrar_pecas_jogo(tipo_peca p[28], int jogador){
+int mostrar_pecas_jogo(peca p[28], int jogador){
     int aux;
     int i, indice =1;
     for(i =0; i<28; i++){
-        if(p[i].posicao == jogador){
+        if(p[i].status == jogador){
             printf("%2d-[%d|%d] ", indice,p[i].lado1, p[i].lado2);
             indice += 1;
         }
@@ -145,7 +155,7 @@ int mostrar_pecas_jogo(tipo_peca p[28], int jogador){
     printf(" (0)-Para Comprar uma Peca\n");
     scanf("%d", &aux);
 
-    return aux; 
+    return aux;
 }
 
 void jodada_sucedida(int jogada){
@@ -154,5 +164,5 @@ void jodada_sucedida(int jogada){
     }else{
         printf("\nJogada invalida, tente novamente\n");
     }
-    
+
 }

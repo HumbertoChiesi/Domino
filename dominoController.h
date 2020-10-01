@@ -13,6 +13,5 @@ Descricao: Arquivo de biblioteca com as funcoes disponiveis para o controller. P
 #include "dominoModel.h"
 
 void executar_domino();
-void limpar_buffer();
 
 #endif 
