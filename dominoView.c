@@ -177,7 +177,7 @@ void imprimir_regras(){
     printf("*O jogador que tiver a peca com os numeros repetidos mais altos inicia o jogo\n\n");
     printf("*Os jogadores devem colocarpecas que tenham os mesmos numeros das pecas que se encontram na ponta do jogo\n\n");
     printf("*Cada jogador, no seu turno, deve colocar uma das suas pecas em uma das 2 extremidades abertas de forma que\n"
-           " os pontos de um do  lados coincida com os pontos da extremidade onde esta sendo colocada.\n\n");
+           "    os pontos de um do  lados coincida com os pontos da extremidade onde esta sendo colocada.\n\n");
     printf("*Se  um  jogador  nao  puder  jogar,  devera comprar do  monte tantas pecas como forem necessarias.\n"
            "    Se nao houver pecas no monte, passara o turno ao seguinte jogador.\n\n");
     printf("*Quando  um  jogador  coloca  sua  ultima  pedra  na  mesa, o jogador ganha a partida.\n\n");
