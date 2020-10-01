@@ -67,7 +67,9 @@ char menu_secundario(){
 int menu_jogar_inicio(){
     //int
     int aux;
+    printf("============================\n");
     printf("Jogo de Domino (Nitro Fin)\n\n");
+    printf("============================\n");
     printf("Selecione o numero de jogadores para distribuir as pecas: \n");
     printf("(1) - Apenas 1 jogador\n");
     printf("(2) - 2 Jogadores\n");
@@ -174,7 +176,8 @@ void imprimir_regras(){
     printf("        REGRAS DO DOMINO:\n\n");
     printf("*Cada jogador pega sete pecas e pode comprar quando precisar de uma peca para  jogar e quantas vezes for \n"
            "    necessario.\n\n");
-    printf("*O jogador que tiver a peca com os numeros repetidos mais altos inicia o jogo\n\n");
+    printf("*O jogador que tiver a peca com os numeros repetidos mais altos inicia o jogo(o jogador que começa a partida\n"
+           "    leva vantagem).\n\n");
     printf("*Os jogadores devem colocarpecas que tenham os mesmos numeros das pecas que se encontram na ponta do jogo\n\n");
     printf("*Cada jogador, no seu turno, deve colocar uma das suas pecas em uma das 2 extremidades abertas de forma que\n"
            "    os pontos de um do  lados coincida com os pontos da extremidade onde esta sendo colocada.\n\n");
@@ -182,6 +185,7 @@ void imprimir_regras(){
            "    Se nao houver pecas no monte, passara o turno ao seguinte jogador.\n\n");
     printf("*Quando  um  jogador  coloca  sua  ultima  pedra  na  mesa, o jogador ganha a partida.\n\n");
     printf("*Em caso de nenhum dos jogadores conseguir continuar a partida ela esta fechada, os jogadores entao contarao\n"
-           "     os pontos das pedras que ficaram e o jogador com menos pontos vence.\n");
+           "     os pontos das pedras que ficaram e o jogador com menos pontos vence.\n\n");
+    printf("*Se os jogadores tiverem os mesmos pontos, entao o jogogador que tem vantagem, neste caso, vence o jogo.\n");
     printf("------------------------------------------------------------------------------------------------------------\n\n");
 }
