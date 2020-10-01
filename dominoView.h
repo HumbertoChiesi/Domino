@@ -22,7 +22,8 @@ void erro_distribuicao_pecas();
 void comecou_jogo(peca p[28], mesa mesa, int meio);
 int jogo_menu();
 int mostrar_pecas_jogo(peca p[28], int jogador);
-
+void imprimir_regras();
 void jodada_sucedida(int jogada);
+
 
 #endif 

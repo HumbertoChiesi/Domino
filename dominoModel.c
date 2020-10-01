@@ -29,7 +29,6 @@ void embaralhar(peca vet[28], int tamanho){
 	for (int i = 0; i < tamanho; i++)
 	{
 		int r = rand() % tamanho;
-
         peca auxiliar = vet[i];
 		vet[i] = vet[r];
 		vet[r] = auxiliar;

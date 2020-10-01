@@ -175,7 +175,7 @@ void executar_domino(){
                             break;
 
                         case '4':
-                            //imprimir as regras do jogo
+                            imprimir_regras();
                             break;
                         case '5':
                             break;
