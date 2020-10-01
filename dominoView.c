@@ -137,7 +137,8 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
     } else printf("[%d|%d] ", m1, m2);
 
     for (i = 0; i < nPP; i++) {printf("[%d|%d] ", pecas_par[i].lado1 , pecas_par[i].lado2);}
-    printf("\n");
+    printf("\n\nTurno do Jogador %d", mesa.turno);
+
 }
 
 int jogo_menu(){

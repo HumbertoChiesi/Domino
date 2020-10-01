@@ -28,7 +28,7 @@ struct mesa{
         int lado_par;
         int lado_impar;
         int njogadores;
-
+        int turno;
 };
 
 typedef struct mesa mesa;
@@ -46,5 +46,7 @@ void comprar(peca p[28], int jogador);
 int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha);
 
 void trocar_lado_peca(peca *p);
+
+int trocar_turno(int turno);
 
 #endif

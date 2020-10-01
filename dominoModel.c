@@ -70,12 +70,14 @@ int primeira_peca(peca p[28], mesa *m)
         }
     }
     if (pmi == -1){
+        m->turno = trocar_turno(p[pm].status);
         p[pm].status=3;
         m->lado_impar =p[pm].lado1;
         m->lado_par=p[pm].lado2;
         return pm;
     }
     else{
+        m->turno = trocar_turno(p[pmi].status);
         p[pmi].status=3;
         m->lado_impar =p[pmi].lado1;
         m->lado_par=p[pmi].lado2;
@@ -97,6 +99,10 @@ void comprar(peca p[28], int jogador){
 int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
 
+    if(jogador != m->turno){
+        return 0;
+    }
+
     for(i =0; i < 28; i++){
         if(p[i].status == jogador){
             if(contador == escolha){
@@ -116,22 +122,26 @@ int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
         trocar_lado_peca(&p[peca_jogada]);
         p[peca_jogada].status = 5 + (2*contador_impar);
         m->lado_impar = p[peca_jogada].lado1;
+        m->turno = trocar_turno(jogador);
         return 1;
     }
     else if(p[peca_jogada].lado2 == m->lado_impar){
         p[peca_jogada].status = 5 + (2*contador_impar);
         m->lado_impar = p[peca_jogada].lado1;
+        m->turno = trocar_turno(jogador);
         return 1;
     }
     else if(p[peca_jogada].lado1 == m->lado_par){
         p[peca_jogada].status = 4 + (2*contador_par);
         m->lado_par = p[peca_jogada].lado2;
+        m->turno = trocar_turno(jogador);
         return 1;
     }
     else if (p[peca_jogada].lado2 == m->lado_par){
         trocar_lado_peca(&p[peca_jogada]);
         p[peca_jogada].status = 4 + (2*contador_par);
         m->lado_par = p[peca_jogada].lado2;
+        m->turno = trocar_turno(jogador);
         return 1;
     } else return 0;
 }
@@ -140,4 +150,10 @@ void trocar_lado_peca(peca *p){
     int aux = p->lado1;
     p->lado1 = p->lado2;
     p->lado2 = aux;
+}
+
+int trocar_turno(int turno){
+    if(turno == 1){
+        return 2;
+    } else return 1;
 }
