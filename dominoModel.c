@@ -112,7 +112,7 @@ int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
             contador_par++;
         }
     }
-    
+
     if(p[peca_jogada].lado1 == m->lado_impar){
         trocar_lado_peca(&p[peca_jogada]);
         m->lado_impar = p[peca_jogada].lado1;
@@ -126,13 +126,13 @@ int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     }
     else if(p[peca_jogada].lado1 == m->lado_par){
         m->lado_par = p[peca_jogada].lado2;
-        p[peca_jogada].status = 2 + (2*contador_par);
+        p[peca_jogada].status = 4 + (2*contador_par);
         return 1;
     }
     else if (p[peca_jogada].lado2 == m->lado_par){
         trocar_lado_peca(&p[peca_jogada]);
         m->lado_par = p[peca_jogada].lado1;
-        p[peca_jogada].status = 2 + (2*contador_par);
+        p[peca_jogada].status = 4 + (2*contador_par);
         return 1;
     } else return 0;
 }
