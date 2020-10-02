@@ -27,14 +27,17 @@ void num_jogadores(mesa *mesa){
 void jogar(peca p[], mesa *mesa){
 
 
-    int aux_peca_inicial;
+    int aux_peca_inicial, verificar_fim;
     aux_peca_inicial = primeira_peca(p, mesa);
-
 
     int opc_jogo;
 
-
     do{
+        verificar_fim = verificar_vitoria(p, *mesa, aux_peca_inicial);
+        if (verificar_fim){
+            vitoria(verificar_fim);
+            break;
+        }
         comecou_jogo(p, *mesa, aux_peca_inicial);
         limpar_buffer();
         opc_jogo = jogo_menu();
@@ -44,7 +47,7 @@ void jogar(peca p[], mesa *mesa){
                 limpar_buffer();
                 escolha = mostrar_pecas_jogo(p, 1);
                 if(escolha == 0){
-                    comprar(p, 1);
+                    comprar(p, 1, mesa);
 
                 }else{
                     int jogada_sucesso;
@@ -60,7 +63,7 @@ void jogar(peca p[], mesa *mesa){
                 limpar_buffer();
                 escolha = mostrar_pecas_jogo(p, 2);
                 if(escolha == 0){
-                    comprar(p, 2);
+                    comprar(p, 2, mesa);
 
                 }else{
                     int jogada_sucesso;
@@ -88,11 +91,9 @@ void iniciar_jogo(peca p[], mesa *mesa){
     int distribuir = 0;
     int jogar_opcao;
     do{
-
-
         limpar_buffer();
         jogar_opcao = menu_jogar(distribuir);
-        if(jogar_opcao && distribuir){
+        if(jogar_opcao == 1 && distribuir){
 
             jogar(p, mesa);
 

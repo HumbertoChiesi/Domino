@@ -41,12 +41,16 @@ void distribuir_pecas(peca pecas_embaralhadas[28]);
 
 int primeira_peca(peca p[28], mesa *m);
 
-void comprar(peca p[28], int jogador);
+void comprar(peca p[28], int jogador, mesa *m);
 
 int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha);
 
 void trocar_lado_peca(peca *p);
 
 int trocar_turno(int turno);
+
+int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem);
+
+int verificar_jogada_vitoria(peca p, mesa m);
 
 #endif

@@ -68,7 +68,7 @@ int menu_jogar_inicio(){
     //int
     int aux;
     printf("============================\n");
-    printf("Jogo de Domino (Nitro Fin)\n\n");
+    printf("Jogo de Domino (Nitro Fin)\n");
     printf("============================\n");
     printf("Selecione o numero de jogadores para distribuir as pecas: \n");
     printf("(1) - Apenas 1 jogador\n");
@@ -123,6 +123,8 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
             nPI++;
         }
     }
+    for(i = 0; i < ((nPI+nPP)*6+11); i++){printf("=");}
+    printf("\n|| ");
     for (i = nPI; i > 0; i--) {printf("[%d|%d] ", pecas_impar[i-1].lado1 , pecas_impar[i-1].lado2);}
 
     if(nPI > 0){
@@ -137,6 +139,8 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
     } else printf("[%d|%d] ", m1, m2);
 
     for (i = 0; i < nPP; i++) {printf("[%d|%d] ", pecas_par[i].lado1 , pecas_par[i].lado2);}
+    printf("||\n");
+    for(i = 0; i < ((nPI+nPP)*6+11); i++){printf("=");}
     printf("\n\nTurno do Jogador %d", mesa.turno);
 
 }
@@ -165,7 +169,7 @@ int mostrar_pecas_jogo(peca p[28], int jogador){
 
 void jodada_sucedida(int jogada){
     if(jogada == 1){
-        printf("\nJogada Realizada Com Sucesso\n");
+        printf("\nJogada Realizada Com Sucesso!\n");
     }else{
         printf("\nJogada invalida, tente novamente\n");
     }
@@ -177,7 +181,7 @@ void imprimir_regras(){
     printf("        REGRAS DO DOMINO:\n\n");
     printf("*Cada jogador pega sete pecas e pode comprar quando precisar de uma peca para  jogar e quantas vezes for \n"
            "    necessario.\n\n");
-    printf("*O jogador que tiver a peca com os numeros repetidos mais altos inicia o jogo(o jogador que começa a partida\n"
+    printf("*O jogador que tiver a peca com os numeros repetidos mais altos inicia o jogo(o jogador que comeca a partida\n"
            "    leva vantagem).\n\n");
     printf("*Os jogadores devem colocarpecas que tenham os mesmos numeros das pecas que se encontram na ponta do jogo\n\n");
     printf("*Cada jogador, no seu turno, deve colocar uma das suas pecas em uma das 2 extremidades abertas de forma que\n"
@@ -189,4 +193,8 @@ void imprimir_regras(){
            "     os pontos das pedras que ficaram e o jogador com menos pontos vence.\n\n");
     printf("*Se os jogadores tiverem os mesmos pontos, entao o jogogador que tem vantagem, neste caso, vence o jogo.\n");
     printf("------------------------------------------------------------------------------------------------------------\n\n");
+}
+
+void vitoria(int jogador){
+    printf("===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
 }

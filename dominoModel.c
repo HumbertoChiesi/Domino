@@ -86,11 +86,12 @@ int primeira_peca(peca p[28], mesa *m)
 }
 
 
-void comprar(peca p[28], int jogador){
+void comprar(peca p[28], int jogador, mesa *m){
     int i;
     for(i =0; i<28; i++){
         if(p[i].status == 0){
             p[i].status = jogador;
+            m->turno = trocar_turno(jogador);
             break;
         }
     }
@@ -156,4 +157,38 @@ int trocar_turno(int turno){
     if(turno == 1){
         return 2;
     } else return 1;
+}
+
+int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
+    int i, pecaJogavel1=0, pecaJogavel2=0, somaJ1=0, somaJ2=0;
+    for(i = 0; i<28; i++){
+        if (p[i].status == 1){
+            somaJ1 += p[i].lado1 + p[i].lado2;
+            if (verificar_jogada_vitoria(p[i], m)){
+                pecaJogavel1++;
+            }
+        }
+        else if (p[i].status == 2){
+            somaJ2 += p[i].lado1 + p[i].lado2;
+            if (verificar_jogada_vitoria(p[i], m)){
+                pecaJogavel2++;
+            }
+        }
+    }
+    if(somaJ1 == 0){return 1;}
+    if(somaJ2 == 0){return 2;}
+    if ((pecaJogavel1+pecaJogavel2)==0){
+        if (somaJ1<somaJ2){return 1;}
+        if(somaJ2<somaJ1){return 2;}
+        if(somaJ1==somaJ2){return jogadorVantagem;}
+    }
+    return 0;
+}
+
+int verificar_jogada_vitoria(peca p, mesa m){
+    int l1 = p.lado1;
+    int l2 = p.lado2;
+    if(l1 == m.lado_impar || l1 == m.lado_par || l2 == m.lado_impar || l2 == m.lado_par){
+        return 1;
+    } else return 0;
 }
