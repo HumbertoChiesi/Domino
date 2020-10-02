@@ -154,14 +154,14 @@ int jogo_menu(){
 
 int mostrar_pecas_jogo(peca p[28], int jogador){
     int aux;
-    int i, indice =1;
+    int i, indice =2;
     for(i =0; i<28; i++){
         if(p[i].status == jogador){
             printf("%2d-[%d|%d] ", indice,p[i].lado1, p[i].lado2);
             indice += 1;
         }
     }
-    printf(" (0)-Para Comprar uma Peca\n");
+    printf("(0)-Comprar uma Peca (1)-Esconder as Pecas\n");
     scanf("%d", &aux);
 
     return aux;
@@ -196,5 +196,13 @@ void imprimir_regras(){
 }
 
 void vitoria(int jogador){
-    printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================", jogador);
+    printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
+}
+
+void erro_comprar(){
+    printf("Sem pecas disponiveis para compra!\n");
+}
+
+void imprimir_pecas(){
+
 }

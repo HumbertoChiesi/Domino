@@ -25,6 +25,6 @@ int mostrar_pecas_jogo(peca p[28], int jogador);
 void imprimir_regras();
 void jodada_sucedida(int jogada);
 void vitoria(int jogador);
-
+void erro_comprar();
 
 #endif 

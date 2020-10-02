@@ -47,12 +47,14 @@ void jogar(peca p[], mesa *mesa){
                 limpar_buffer();
                 escolha = mostrar_pecas_jogo(p, 1);
                 if(escolha == 0){
-                    comprar(p, 1, mesa);
+                    if (comprar(p, 1, mesa)==0){erro_comprar();}
 
-                }else{
+                }
+                else if (escolha == 1){
+                    break;
+                } else{
                     int jogada_sucesso;
-                    limpar_buffer();
-                    jogada_sucesso = verficar_jogada(mesa, p, 1, escolha);
+                    jogada_sucesso = verificar_jogada(mesa, p, 1, escolha);
                     jodada_sucedida(jogada_sucesso);
 
                 }
@@ -63,12 +65,14 @@ void jogar(peca p[], mesa *mesa){
                 limpar_buffer();
                 escolha = mostrar_pecas_jogo(p, 2);
                 if(escolha == 0){
-                    comprar(p, 2, mesa);
+                    if (comprar(p, 2, mesa)==0){erro_comprar();}
 
-                }else{
+                }
+                else if (escolha == 1){
+                    break;
+                } else{
                     int jogada_sucesso;
-                    limpar_buffer();
-                    jogada_sucesso = verficar_jogada(mesa, p, 2, escolha);
+                    jogada_sucesso = verificar_jogada(mesa, p, 2, escolha);
                     jodada_sucedida(jogada_sucesso);
 
                 }
@@ -93,24 +97,20 @@ void iniciar_jogo(peca p[], mesa *mesa){
     do{
         limpar_buffer();
         jogar_opcao = menu_jogar(distribuir);
-        if(jogar_opcao == 1 && distribuir){
 
-            jogar(p, mesa);
+        if(jogar_opcao == 1){
+            if (distribuir){
+                jogar(p, mesa);
+            } else erro_distribuicao_pecas();
 
         }else if (jogar_opcao == 2){
 
             distribuir = 1;
             distribuir_pecas(p);
 
-        }else if (jogar_opcao){
+        }else if (jogar_opcao==3){}
+        else erro();
 
-            erro_distribuicao_pecas();
-
-        }else{
-
-            erro();
-
-        }
 
     }while(jogar_opcao != 3);
 

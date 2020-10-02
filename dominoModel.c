@@ -86,19 +86,22 @@ int primeira_peca(peca p[28], mesa *m)
 }
 
 
-void comprar(peca p[28], int jogador, mesa *m){
+int comprar(peca p[28], int jogador, mesa *m){
     int i;
     for(i =0; i<28; i++){
         if(p[i].status == 0){
             p[i].status = jogador;
             m->turno = trocar_turno(jogador);
-            break;
+            return 1;
         }
     }
+    return 0;
 }
 
-int verficar_jogada(mesa *m, peca p[28], int jogador, int escolha){
+
+int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
+    escolha--;
 
     if(jogador != m->turno){
         return 0;
@@ -160,24 +163,26 @@ int trocar_turno(int turno){
 }
 
 int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
-    int i, pecaJogavel1=0, pecaJogavel2=0, somaJ1=0, somaJ2=0;
+    int i, pecaJogavel1=0, pecaJogavel2=0, somaJ1=0, somaJ2=0, nPecasJ1=0, nPecasJ2=0;
     for(i = 0; i<28; i++){
         if (p[i].status == 1){
+            nPecasJ1++;
             somaJ1 += p[i].lado1 + p[i].lado2;
-            if (verificar_jogada_vitoria(p[i], m)){
+            if (verificar_peca_jogavel(p[i], m)){
                 pecaJogavel1++;
             }
         }
         else if (p[i].status == 2){
+            nPecasJ2++;
             somaJ2 += p[i].lado1 + p[i].lado2;
-            if (verificar_jogada_vitoria(p[i], m)){
+            if (verificar_peca_jogavel(p[i], m)){
                 pecaJogavel2++;
             }
         }
     }
-    if(somaJ1 == 0){return 1;}
-    if(somaJ2 == 0){return 2;}
-    if ((pecaJogavel1+pecaJogavel2)==0){
+    if(somaJ1 == 0 && nPecasJ1 == 0){return 1;}
+    if(somaJ2 == 0 && nPecasJ2 == 0){return 2;}
+    if ((pecaJogavel1+pecaJogavel2)==0 && verificar_compra(p) == 0){
         if (somaJ1<somaJ2){return 1;}
         if(somaJ2<somaJ1){return 2;}
         if(somaJ1==somaJ2){return jogadorVantagem;}
@@ -185,10 +190,18 @@ int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
     return 0;
 }
 
-int verificar_jogada_vitoria(peca p, mesa m){
+int verificar_peca_jogavel(peca p, mesa m){
     int l1 = p.lado1;
     int l2 = p.lado2;
     if(l1 == m.lado_impar || l1 == m.lado_par || l2 == m.lado_impar || l2 == m.lado_par){
         return 1;
     } else return 0;
+}
+
+int verificar_compra(peca p[28]){
+    int i;
+    for (int i = 0; i < 28; i++) {
+        if (p[i].status == 0){return 1;}
+    }
+    return 0;
 }
