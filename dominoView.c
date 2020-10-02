@@ -123,7 +123,8 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
             nPI++;
         }
     }
-    for(i = 0; i < ((nPI+nPP)*6+11); i++){printf("=");}
+    i=0;
+    while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
     printf("\n|| ");
     for (i = nPI; i > 0; i--) {printf("[%d|%d] ", pecas_impar[i-1].lado1 , pecas_impar[i-1].lado2);}
 
@@ -140,7 +141,8 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
 
     for (i = 0; i < nPP; i++) {printf("[%d|%d] ", pecas_par[i].lado1 , pecas_par[i].lado2);}
     printf("||\n");
-    for(i = 0; i < ((nPI+nPP)*6+11); i++){printf("=");}
+    i=0;
+    while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
     printf("\n\nTurno do Jogador %d", mesa.turno);
 
 }
