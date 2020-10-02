@@ -196,5 +196,5 @@ void imprimir_regras(){
 }
 
 void vitoria(int jogador){
-    printf("===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
+    printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================", jogador);
 }
