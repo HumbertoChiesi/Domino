@@ -24,21 +24,20 @@ void num_jogadores(mesa *mesa){
 
     }while(mesa->njogadores != 1 || mesa->njogadores != 2);
 }
-void jogar(peca p[], mesa *mesa){
+void jogar(peca p[], mesa *mesa, int peca_inicial){
 
 
     int aux_peca_inicial, verificar_fim;
-    aux_peca_inicial = primeira_peca(p, mesa);
 
     int opc_jogo;
 
     do{
-        verificar_fim = verificar_vitoria(p, *mesa, aux_peca_inicial);
+        verificar_fim = verificar_vitoria(p, *mesa, peca_inicial);
         if (verificar_fim){
             vitoria(verificar_fim);
             break;
         }
-        comecou_jogo(p, *mesa, aux_peca_inicial);
+        comecou_jogo(p, *mesa, peca_inicial);
         limpar_buffer();
         opc_jogo = jogo_menu();
         switch(opc_jogo){
@@ -90,23 +89,25 @@ void jogar(peca p[], mesa *mesa){
 
 }
 
-void iniciar_jogo(peca p[], mesa *mesa){
+void iniciar_jogo(peca p[28], mesa *mesa){
 
     int distribuir = 0;
-    int jogar_opcao;
+    int jogar_opcao, aux_primeira_peca;
     do{
         limpar_buffer();
         jogar_opcao = menu_jogar(distribuir);
 
         if(jogar_opcao == 1){
             if (distribuir){
-                jogar(p, mesa);
+                jogar(p, mesa, aux_primeira_peca);
             } else erro_distribuicao_pecas();
 
         }else if (jogar_opcao == 2){
-
-            distribuir = 1;
-            distribuir_pecas(p);
+            if(distribuir ==0){
+                distribuir = 1;
+                distribuir_pecas(p);
+                aux_primeira_peca = primeira_peca(p, mesa);
+            }
 
         }else if (jogar_opcao==3){}
         else erro();

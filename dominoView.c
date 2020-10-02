@@ -123,9 +123,9 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
             nPI++;
         }
     }
-    i=0;
-    while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
-    printf("\n|| ");
+    i=1;
+    while (i < ((nPI+nPP)*6+11) && i < 119){printf("="); i++;}
+    printf("=\n|| ");
     for (i = nPI; i > 0; i--) {printf("[%d|%d] ", pecas_impar[i-1].lado1 , pecas_impar[i-1].lado2);}
 
     if(nPI > 0){

@@ -100,8 +100,7 @@ int comprar(peca p[28], int jogador, mesa *m){
 
 
 int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
-    int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
-    escolha--;
+    int contador = 2, contador_par = 0, contador_impar = 0, i, peca_jogada;
 
     if(jogador != m->turno){
         return 0;
