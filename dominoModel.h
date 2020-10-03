@@ -55,4 +55,6 @@ int verificar_peca_jogavel(peca p, mesa m);
 
 int verificar_compra(peca p[28]);
 
+void reseta_status(peca p[28]);
+
 #endif

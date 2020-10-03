@@ -23,6 +23,11 @@ void cria_pecas(peca p[28]){
 
 }
 
+void reseta_status(peca p[28]){
+    int i;
+    for (int i = 0; i < 28; ++i) {p[i].status = 0;}
+}
+
 //funcao para embaralhar as pecas
 void embaralhar(peca vet[28], int tamanho){
     srand(time(NULL));
@@ -45,7 +50,7 @@ void distribuir_pecas(peca p[28]){
     }
 }
 
-int primeira_peca(peca p[28], mesa *m)
+    int primeira_peca(peca p[28], mesa *m)
 {
     int i = 0, somaAux;
     while(p[i].status != 1 && p[i].status != 2){i++;}
@@ -91,7 +96,6 @@ int comprar(peca p[28], int jogador, mesa *m){
     for(i =0; i<28; i++){
         if(p[i].status == 0){
             p[i].status = jogador;
-            m->turno = trocar_turno(jogador);
             return 1;
         }
     }
