@@ -12,19 +12,14 @@ Descricao: Arquivo de biblioteca responsavel pelas funcoes disponiveis no view. 
 
 char menu_inicial();
 void erro();
-void mostrar_pecas_ordenadas();
-void mostrar_pecas(peca p[28]);
-char menu_secundario();
-int menu_jogar_inicio();
-int menu_distribuir_pecas();
-int menu_jogar(int is_distribuir);
-void erro_distribuicao_pecas();
-void comecou_jogo(peca p[28], mesa mesa, int meio);
-int jogo_menu();
-int mostrar_pecas_jogo(peca p[28], int jogador);
+void comecou_jogo(peca p[28], mesa mesa);
+char jogo_menu();
+void mostrar_pecas_jogo(peca p[28], int jogador);
 void imprimir_regras();
 void jodada_sucedida(int jogada);
 void vitoria(int jogador);
-void erro_comprar();
+void erro_comprar(mesa *m, int jogador);
+int opc_jogada();
+void erro_retomar_jogo();
 
 #endif 

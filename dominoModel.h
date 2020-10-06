@@ -28,6 +28,7 @@ struct mesa{
         int lado_par;
         int lado_impar;
         int njogadores;
+        int jogador_vantagem;
         int turno;
 };
 
@@ -40,6 +41,8 @@ void embaralhar(peca vet[], int tamanho);
 void distribuir_pecas(peca pecas_embaralhadas[28]);
 
 int primeira_peca(peca p[28], mesa *m);
+
+int encontrar_primeira_peca(peca p[28]);
 
 int comprar(peca p[28], int jogador, mesa *m);
 

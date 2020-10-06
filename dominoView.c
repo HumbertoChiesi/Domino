@@ -13,7 +13,8 @@ char menu_inicial(){
     printf("\n============================\n");
     printf("Bem-vindo ao Domino Nitro Fin\n");
     printf("============================\n");
-    printf("\n (1) - Ver as pecas ordenadas\n (2) - Ver as pecas na embaralhadas\n (3) - Comecar a jogar \n (4) - Sair\n");
+    printf("\n (1) - Iniciar Jogo(2 Jogadores)\n (2) - Iniciar Jogo(contra o computador\n (3) - Retomar Jogo Interrompido\n"
+           " (4) - Regras do Jogo\n (5) - Salvar o Jogo\n (6) - Recuperar o Jogo\n (0) - Sair\n Opcao:");
     aux = getchar();
     return aux;
 }
@@ -22,83 +23,7 @@ void erro(){
     printf("\nOpcao Invalida. Escolha novamente uma das opcoes disponiveis.\n");
 }
 
-void mostrar_pecas_ordenadas(){
-    int i, j;
-    for(i=0; i<7; ++i){
-        for(j=i; j <7 ; ++j){
-            printf("[%d|%d] ", i, j);
-        }
-        printf("\n");
-    }
-}
-
-void mostrar_pecas(peca p[28]){
-    int indice =0;
-    for(int i =1; i<=4; i++){
-        for(int j= 1; j<=7; j++){
-            //imprimindo o domino na sequencia ordenada.
-            printf("%2d. [%d|%d] ", indice+1, p[indice].lado1, p[indice].lado2);
-            indice++;
-        }
-        printf("\n");
-    }
-
-}
-
-char menu_secundario(){
-
-
-    int opc;
-    printf("============================\n");
-    printf("Jogo de Domino (Nitro Fin)\n");
-    printf("============================\n");
-    printf("(1) - Iniciar novo Jogo\n");
-    printf("(2) - Continuar a Jogar\n");
-    printf("(3) - Salvar Jogo\n");
-    printf("(4) - Regras do Jogo\n");
-    printf("(5) - Sair\n");
-
-    opc = getchar();
-
-    return opc;
-
-}
-
-int menu_jogar_inicio(){
-    //int
-    int aux;
-    printf("============================\n");
-    printf("Jogo de Domino (Nitro Fin)\n");
-    printf("============================\n");
-    printf("Selecione o numero de jogadores para distribuir as pecas: \n");
-    printf("(1) - Apenas 1 jogador\n");
-    printf("(2) - 2 Jogadores\n");
-    scanf("%d", &aux);
-
-    return aux;
-}
-
-int menu_jogar(int is_distribuir){
-    int aux;
-    printf("\n==========================\n");
-    printf("(1) - Iniciar Jogo \n");
-    printf("(2) - Distribuir as pecas\n");
-    printf("(3) - Voltar\n");
-    if(is_distribuir ==0){
-        printf("Pecas nao distribuidas ainda!\n");
-    }else{
-        printf("Pecas ja distribuidas\n");
-    }
-    scanf("%d", &aux);
-
-    return aux;
-}
-
-void erro_distribuicao_pecas(){
-    printf("\nAs pecas nao foram distribuidas ainda! Impossivel comecar a jogar\n");
-}
-
-void comecou_jogo(peca p[28], mesa mesa, int meio){
+void comecou_jogo(peca p[28], mesa mesa){
     printf("\nMesa:\n");
     int pp = 0, nPP=0, nPI=0, n, r, i;
     while (p[pp].status != 3){pp++;}
@@ -143,39 +68,43 @@ void comecou_jogo(peca p[28], mesa mesa, int meio){
     printf("||\n");
     i=0;
     while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
-    printf("\n\nTurno do Jogador %d", mesa.turno);
+    printf("\n\nTurno do Jogador %d!", mesa.turno);
 
 }
 
-int jogo_menu(){
-    int aux;
-    printf("\n(1) - Pecas Jogador 1\n(2) - Pecas Jogador 2\n(3) - Voltar\n");
-    scanf("%d", &aux);
+char jogo_menu(){
+    char aux;
+    printf("\n(1) - Jogar\n(2) - Comprar\n(3) - Voltar\nOpcao:");
+    aux = getchar();
     return aux;
 }
 
-int mostrar_pecas_jogo(peca p[28], int jogador){
-    int aux;
-    int i, indice =2;
+void mostrar_pecas_jogo(peca p[28], int jogador){
+    int i, indice =1;
+    printf("\nPecas Jogador %d: ", jogador);
     for(i =0; i<28; i++){
         if(p[i].status == jogador){
             printf("%2d-[%d|%d] ", indice,p[i].lado1, p[i].lado2);
             indice += 1;
         }
     }
-    printf("(0)-Comprar uma Peca (1)-Esconder as Pecas\n");
-    scanf("%d", &aux);
-
-    return aux;
+    printf("\n----------------");
 }
 
 void jodada_sucedida(int jogada){
     if(jogada == 1){
-        printf("\nJogada Realizada Com Sucesso!\n");
+        printf("\nJogada Realizada Com Sucesso!\n-------------------------------------\n");
     }else{
-        printf("\nJogada invalida, tente novamente\n");
+        printf("\nJogada invalida, tente novamente\n-------------------------------------\n");
     }
 
+}
+
+int opc_jogada(){
+    int opc;
+    printf("Escolha peca para jogar(0 para desistir de jogar): ");
+    scanf("%d", &opc);
+    return opc;
 }
 
 void imprimir_regras(){
@@ -194,17 +123,18 @@ void imprimir_regras(){
     printf("*Em caso de nenhum dos jogadores conseguir continuar a partida ela esta fechada, os jogadores entao contarao\n"
            "     os pontos das pedras que ficaram e o jogador com menos pontos vence.\n\n");
     printf("*Se os jogadores tiverem os mesmos pontos, entao o jogogador que tem vantagem, neste caso, vence o jogo.\n");
-    printf("------------------------------------------------------------------------------------------------------------\n\n");
+    printf("------------------------------------------------------------------------------------------------------------\n");
 }
 
 void vitoria(int jogador){
     printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
 }
 
-void erro_comprar(){
+void erro_comprar(mesa *m, int jogador){
     printf("Sem pecas disponiveis para compra!\n");
+    m->turno = trocar_turno(jogador);
 }
 
-void imprimir_pecas(){
-
+void erro_retomar_jogo(){
+    printf("Nenhum Jogo foi Iniciado Ainda!!\n");
 }

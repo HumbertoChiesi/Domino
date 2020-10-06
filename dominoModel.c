@@ -50,8 +50,7 @@ void distribuir_pecas(peca p[28]){
     }
 }
 
-    int primeira_peca(peca p[28], mesa *m)
-{
+int primeira_peca(peca p[28], mesa *m){
     int i = 0, somaAux;
     while(p[i].status != 1 && p[i].status != 2){i++;}
     int maior = p[i].lado1 + p[i].lado2, pm = i;
@@ -76,6 +75,7 @@ void distribuir_pecas(peca p[28]){
     }
     if (pmi == -1){
         m->turno = trocar_turno(p[pm].status);
+        m->jogador_vantagem = p[pm].status;
         p[pm].status=3;
         m->lado_impar =p[pm].lado1;
         m->lado_par=p[pm].lado2;
@@ -83,6 +83,7 @@ void distribuir_pecas(peca p[28]){
     }
     else{
         m->turno = trocar_turno(p[pmi].status);
+        m->jogador_vantagem = p[pmi].status;
         p[pmi].status=3;
         m->lado_impar =p[pmi].lado1;
         m->lado_par=p[pmi].lado2;
@@ -90,6 +91,15 @@ void distribuir_pecas(peca p[28]){
     }
 }
 
+int encontrar_primeira_peca(peca p[28]){
+    int i = 0;
+    while (i<28){
+        if (p[i].status == 3){
+            i++;
+            return i;
+        }
+    }
+}
 
 int comprar(peca p[28], int jogador, mesa *m){
     int i;
@@ -104,7 +114,7 @@ int comprar(peca p[28], int jogador, mesa *m){
 
 
 int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
-    int contador = 2, contador_par = 0, contador_impar = 0, i, peca_jogada;
+    int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
 
     if(jogador != m->turno){
         return 0;
