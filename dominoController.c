@@ -13,30 +13,42 @@ void limpar_buffer(){
 }
 void menu_jogo(peca p[28],mesa *m){
     char opc;
-    int jogada;
+    int jogada, lado_escolhido, aux_jogada;
     int verificar_fim;
     do{
       verificar_fim = verificar_vitoria(p, *m, m->jogador_vantagem);
       if (verificar_fim){vitoria(verificar_fim); break;}
-      comecou_jogo(p, *m);
+      imprime_mesa(p);
       mostrar_pecas_jogo(p, m->turno);
       limpar_buffer();
       opc = jogo_menu();
       switch (opc) {
           case '1':
               jogada = opc_jogada();
-              if (jogada){jodada_sucedida(verificar_jogada(m, p, m->turno, jogada));}
+              aux_jogada = verificar_jogada(m, p, m->turno, jogada);
+              if (jogada){
+                  if(aux_jogada == 2){
+                      limpar_buffer();
+                      lado_escolhido = escolher_lado();
+                      coloca_lado_escolhido(m, p, m->turno, jogada, lado_escolhido);
+                      if (lado_escolhido == 1 || lado_escolhido == 2){jogada_sucedida(1);}
+                  } else jogada_sucedida(aux_jogada);
+              }
               break;
           case '2':
-              if (comprar(p, m->turno, m) == 0){erro_comprar(m, m->turno);}
+              erro_comprar(comprar(p, m->turno));
               break;
           case '3':
+              if (verificar_compra(p) == 0){m->turno = trocar_turno(m->turno);}
+              else printf("\n==>Passagem de turno somente quando nao ha mais pecas para compra!\n");
+              break;
+          case '4':
               break;
           default:
               erro();
               break;
       }
-    }while(opc != '3');
+    }while(opc != '4');
 }
 
 void executar_domino(){

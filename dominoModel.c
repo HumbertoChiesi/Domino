@@ -25,7 +25,7 @@ void cria_pecas(peca p[28]){
 
 void reseta_status(peca p[28]){
     int i;
-    for (int i = 0; i < 28; ++i) {p[i].status = 0;}
+    for (i = 0; i < 28; ++i) {p[i].status = 0;}
 }
 
 //funcao para embaralhar as pecas
@@ -91,17 +91,8 @@ int primeira_peca(peca p[28], mesa *m){
     }
 }
 
-int encontrar_primeira_peca(peca p[28]){
-    int i = 0;
-    while (i<28){
-        if (p[i].status == 3){
-            i++;
-            return i;
-        }
-    }
-}
 
-int comprar(peca p[28], int jogador, mesa *m){
+int comprar(peca p[28], int jogador){
     int i;
     for(i =0; i<28; i++){
         if(p[i].status == 0){
@@ -112,9 +103,9 @@ int comprar(peca p[28], int jogador, mesa *m){
     return 0;
 }
 
-
 int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
+    int lado_impar=0, lado_par=0;
 
     if(jogador != m->turno){
         return 0;
@@ -137,30 +128,68 @@ int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
 
     if(p[peca_jogada].lado1 == m->lado_impar){
         trocar_lado_peca(&p[peca_jogada]);
-        p[peca_jogada].status = 5 + (2*contador_impar);
-        m->lado_impar = p[peca_jogada].lado1;
-        m->turno = trocar_turno(jogador);
-        return 1;
+        lado_impar = 1;
     }
     else if(p[peca_jogada].lado2 == m->lado_impar){
-        p[peca_jogada].status = 5 + (2*contador_impar);
-        m->lado_impar = p[peca_jogada].lado1;
-        m->turno = trocar_turno(jogador);
-        return 1;
+        lado_impar = 1;
     }
-    else if(p[peca_jogada].lado1 == m->lado_par){
-        p[peca_jogada].status = 4 + (2*contador_par);
-        m->lado_par = p[peca_jogada].lado2;
-        m->turno = trocar_turno(jogador);
-        return 1;
+    if(p[peca_jogada].lado1 == m->lado_par){
+        lado_par = 1;
     }
     else if (p[peca_jogada].lado2 == m->lado_par){
         trocar_lado_peca(&p[peca_jogada]);
+        lado_par = 1;
+    }
+
+    if ((lado_impar+lado_par)==1){
+        if (lado_par){
+            p[peca_jogada].status = 4 + (2*contador_par);
+            m->lado_par = p[peca_jogada].lado2;
+            m->turno = trocar_turno(jogador);
+            return 1;
+        } else{
+            p[peca_jogada].status = 5 + (2*contador_impar);
+            m->lado_impar = p[peca_jogada].lado1;
+            m->turno = trocar_turno(jogador);
+            return 1;
+        }
+    }
+    else if ((lado_impar+lado_par)==2){return 2;}
+    else return 0;
+}
+
+void coloca_lado_escolhido(mesa *m, peca p[28], int jogador, int escolha, int lado){
+    if (lado < 1 || lado > 2){return;}
+
+    int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
+
+    for(i =0; i < 28; i++){
+        if(p[i].status == jogador){
+            if(contador == escolha){
+                peca_jogada = i;
+                contador++;
+            } else{contador++; }
+        }
+        if((p[i].status %2) != 0 && p[i].status >3 ){
+            contador_impar++;
+
+        }else if ((p[i].status %2) == 0 && p[i].status >2){
+            contador_par++;
+        }
+    }
+
+    if (lado == 2){
+        if (p[peca_jogada].lado2 == m->lado_par){trocar_lado_peca(&p[peca_jogada]);}
         p[peca_jogada].status = 4 + (2*contador_par);
         m->lado_par = p[peca_jogada].lado2;
         m->turno = trocar_turno(jogador);
-        return 1;
-    } else return 0;
+    }
+    else if (lado == 1){
+        if(p[peca_jogada].lado1 == m->lado_impar){trocar_lado_peca(&p[peca_jogada]);}
+        p[peca_jogada].status = 5 + (2*contador_impar);
+        m->lado_impar = p[peca_jogada].lado1;
+        m->turno = trocar_turno(jogador);
+    }
 }
 
 void trocar_lado_peca(peca *p){
@@ -213,7 +242,7 @@ int verificar_peca_jogavel(peca p, mesa m){
 
 int verificar_compra(peca p[28]){
     int i;
-    for (int i = 0; i < 28; i++) {
+    for (i = 0; i < 28; i++) {
         if (p[i].status == 0){return 1;}
     }
     return 0;

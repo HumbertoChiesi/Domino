@@ -20,18 +20,18 @@ char menu_inicial(){
 }
 
 void erro(){
-    printf("\nOpcao Invalida. Escolha novamente uma das opcoes disponiveis.\n");
+    printf("\n==>Opcao Invalida. Escolha novamente uma das opcoes disponiveis.\n");
 }
 
-void comecou_jogo(peca p[28], mesa mesa){
-    printf("\nMesa:\n");
+void imprime_mesa(peca p[28]){
+    printf("\n----------------------\nMesa:\n");
     int pp = 0, nPP=0, nPI=0, n, r, i;
     while (p[pp].status != 3){pp++;}
     int m1=p[pp].lado1, m2=p[pp].lado2;
     peca pecas_par[28];
     peca pecas_impar[28];
 
-    for (int i = 0; i < 28; i++) {
+    for (i = 0; i < 28; i++) {
         r=0;
         n = p[i].status;
         if((n%2)==0 && n>=4){
@@ -68,13 +68,11 @@ void comecou_jogo(peca p[28], mesa mesa){
     printf("||\n");
     i=0;
     while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
-    printf("\n\nTurno do Jogador %d!", mesa.turno);
-
 }
 
 char jogo_menu(){
     char aux;
-    printf("\n(1) - Jogar\n(2) - Comprar\n(3) - Voltar\nOpcao:");
+    printf("\n(1) - Jogar\n(2) - Comprar\n(3) - Passar\n(4) - Voltar\nOpcao:");
     aux = getchar();
     return aux;
 }
@@ -88,21 +86,21 @@ void mostrar_pecas_jogo(peca p[28], int jogador){
             indice += 1;
         }
     }
-    printf("\n----------------");
+    printf("\n----------------------");
 }
 
-void jodada_sucedida(int jogada){
-    if(jogada == 1){
-        printf("\nJogada Realizada Com Sucesso!\n-------------------------------------\n");
+void jogada_sucedida(int jogada){
+    if(jogada==1){
+        printf("\n==>Jogada Realizada Com Sucesso!\n");
     }else{
-        printf("\nJogada invalida, tente novamente\n-------------------------------------\n");
+        printf("\n==>Jogada invalida, tente novamente\n");
     }
 
 }
 
 int opc_jogada(){
     int opc;
-    printf("Escolha peca para jogar(0 para desistir de jogar): ");
+    printf("Escolha peca para jogar(0 para desistir de jogar):");
     scanf("%d", &opc);
     return opc;
 }
@@ -130,11 +128,20 @@ void vitoria(int jogador){
     printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
 }
 
-void erro_comprar(mesa *m, int jogador){
-    printf("Sem pecas disponiveis para compra!\n");
-    m->turno = trocar_turno(jogador);
+void erro_comprar(int n){
+    if (n == 0){printf("\n==>Sem pecas disponiveis para compra!\n");}
+    else printf("\n==>Peca comprada!\n");
+
 }
 
 void erro_retomar_jogo(){
     printf("Nenhum Jogo foi Iniciado Ainda!!\n");
+}
+
+int escolher_lado(){
+    int opc;
+    printf("1-Esquerda 2-Direita 0-Desistir:");
+    scanf("%d", &opc);
+    if (opc<0 || opc > 2){erro();}
+    return opc;
 }
