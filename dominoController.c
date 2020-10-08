@@ -11,10 +11,63 @@ void limpar_buffer(){
     int ch;
     while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){}
 }
+
+void gravar_jogo(peca pecas[28], mesa *m){
+    FILE *fp;
+    int i = 0;
+
+    if((fp = fopen("DOMINO", "w")) == NULL){
+        printf("ERRO AO ABRIR O ARQUIVO");
+        return;
+    }
+
+    if (fwrite(&*m, sizeof(struct mesa), 1, fp) != 1){
+        printf("Erro na gravacao do arquivo");
+    }
+
+    while (i<28){
+        if (fwrite(&pecas[i], sizeof(peca), 1, fp) != 1){
+            printf("Erro na gravacao do arquivo");
+        }
+        i++;
+    }
+    fclose(fp);
+}
+
+int carregar_jogo(peca pecas[28], mesa *m){
+    FILE *fp;
+    int i;
+
+    if((fp = fopen("DOMINO", "r")) == NULL)
+    {
+        printf("O arquivo DOMINO nao pode ser aberto");
+        return 0;
+    }
+
+    i = 0;
+    if (fread(&*m, sizeof(struct mesa), 1, fp)  != 1){
+        printf("Erro na leitura do arquivo");
+    }
+    while (!feof(fp))    //ou (TRUE)
+    {
+        if (fread(&pecas[i], sizeof(peca), 1, fp)  != 1)
+        {
+            if(feof(fp))
+                break;
+            printf("Erro na leitura do arquivo");
+            break;
+        }
+        i++;
+    }
+    fclose(fp);
+    return 1;
+}
+
 void menu_jogo(peca p[28],mesa *m){
     char opc;
     int jogada, lado_escolhido, aux_jogada;
     int verificar_fim;
+
     do{
       verificar_fim = verificar_vitoria(p, *m, m->jogador_vantagem);
       if (verificar_fim){vitoria(verificar_fim); break;}
@@ -90,8 +143,11 @@ void executar_domino(){
                 imprimir_regras();
                 break;
             case '5':
+                if (aux){gravar_jogo(pecas, &m);}
+                else erro_retomar_jogo();
                 break;
             case '6':
+                aux = carregar_jogo(pecas, &m);
                 break;
             default:
                 erro();
@@ -100,3 +156,4 @@ void executar_domino(){
         limpar_buffer();
     }while (opc != '0');
 }
+

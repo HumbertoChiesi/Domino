@@ -135,7 +135,7 @@ void erro_comprar(int n){
 }
 
 void erro_retomar_jogo(){
-    printf("Nenhum Jogo foi Iniciado Ainda!!\n");
+    printf("\n==>Nenhum Jogo foi Iniciado Ainda!!\n");
 }
 
 int escolher_lado(){
