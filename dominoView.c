@@ -8,6 +8,7 @@ Descricao: implementacao das funcoes do view.h.
 
 #include "dominoView.h"
 
+//funcao imprime o menu inicial do Domino
 char menu_inicial(){
     char aux;
     printf("\n============================\n");
@@ -19,15 +20,25 @@ char menu_inicial(){
     return aux;
 }
 
+//funcao imprime mensagem de erro para opcao invalida
 void erro(){
     printf("\n==>Opcao Invalida. Escolha novamente uma das opcoes disponiveis.\n");
 }
 
-void imprime_mesa(peca p[28]){
+//funcao imprime mesa do Domino
+void imprime_mesa(peca p[28], int jogador){
+    int pp = 0, nPP=0, nPI=0, n, r, i, indice;
+
     printf("\n----------------------\nMesa:\n");
-    int pp = 0, nPP=0, nPI=0, n, r, i;
+    printf("Pecas Jogador %d: ", trocar_turno(jogador));
+    for (int i = 0; i < 28; ++i) {
+        if (p[i].status == trocar_turno(jogador)){printf("[x|x] ");}
+    }
+    printf("\n");
+
     while (p[pp].status != 3){pp++;}
     int m1=p[pp].lado1, m2=p[pp].lado2;
+
     peca pecas_par[28];
     peca pecas_impar[28];
 
@@ -68,8 +79,19 @@ void imprime_mesa(peca p[28]){
     printf("||\n");
     i=0;
     while (i < ((nPI+nPP)*6+11) && i < 120){printf("="); i++;}
+
+    indice = 1;
+    printf("\nPecas Jogador %d: ", jogador);
+    for(i =0; i<28; i++){
+        if(p[i].status == jogador){
+            printf("%2d-[%d|%d] ", jogador,p[i].lado1, p[i].lado2);
+            indice += 1;
+        }
+    }
+    printf("\n----------------------");
 }
 
+//Funcao imprime menu de opcoes do Jogador e devolve a opcao escolhida
 char jogo_menu(){
     char aux;
     printf("\n(1) - Jogar\n(2) - Comprar\n(3) - Passar\n(4) - Voltar\nOpcao:");
@@ -77,27 +99,16 @@ char jogo_menu(){
     return aux;
 }
 
-void mostrar_pecas_jogo(peca p[28], int jogador){
-    int i, indice =1;
-    printf("\nPecas Jogador %d: ", jogador);
-    for(i =0; i<28; i++){
-        if(p[i].status == jogador){
-            printf("%2d-[%d|%d] ", indice,p[i].lado1, p[i].lado2);
-            indice += 1;
-        }
-    }
-    printf("\n----------------------");
-}
-
+//Funcao imprime mensagem de sucesso ou falha da jogada
 void jogada_sucedida(int jogada){
     if(jogada==1){
         printf("\n==>Jogada Realizada Com Sucesso!\n");
     }else{
         printf("\n==>Jogada invalida, tente novamente\n");
     }
-
 }
 
+//Funcao imprime mensagem de escolha de peca e devolve o numero da peca escolhida
 int opc_jogada(){
     int opc;
     printf("Escolha peca para jogar(0 para desistir de jogar):");
@@ -105,6 +116,11 @@ int opc_jogada(){
     return opc;
 }
 
+void erro_passar_turno(){
+    printf("\n==>Passagem de turno somente quando nao ha mais pecas disponiveis para compra!\n");
+}
+
+//Funcao imprime as regras do Domino
 void imprimir_regras(){
     printf("------------------------------------------------------------------------------------------------------------\n");
     printf("        REGRAS DO DOMINO:\n\n");
@@ -124,24 +140,43 @@ void imprimir_regras(){
     printf("------------------------------------------------------------------------------------------------------------\n");
 }
 
+//Funcao imprime mensagem de vitoria
 void vitoria(int jogador){
     printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
 }
 
+//Funcao imprime sucesso ou falha da compra de uma peca
 void erro_comprar(int n){
     if (n == 0){printf("\n==>Sem pecas disponiveis para compra!\n");}
     else printf("\n==>Peca comprada!\n");
 
 }
 
+//Funcao imprime mensagem de erro se nenhum jogo foi iniciado ainda
 void erro_retomar_jogo(){
     printf("\n==>Nenhum Jogo foi Iniciado Ainda!!\n");
 }
 
+//Funcao imprime mensagem de escolha de lado da peca e devolve inteiro indicando lado escolhido
 int escolher_lado(){
     int opc;
     printf("1-Esquerda 2-Direita 0-Desistir:");
     scanf("%d", &opc);
     if (opc<0 || opc > 2){erro();}
     return opc;
+}
+
+//Funcao imprime mensagem de erro ao nao poder abrir o arquivo
+void erro_abrir_arquivo(){
+    printf("ERRO AO ABRIR O ARQUIVO");
+}
+
+//Funcao imprime mensagem de erro ao nao poder ler o arquivo
+void erro_leitura(){
+    printf("Erro na leitura do arquivo");
+}
+
+//Funcao imprime mensagem de erro ao nao poder gravar o arquivo
+void erro_gravacao(){
+    printf("Erro na gravacao do arquivo");
 }

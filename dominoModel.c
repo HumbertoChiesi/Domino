@@ -9,7 +9,6 @@ Descricao: implementacao da biblioteca model.h.
 
 //responsavel pela criacao de pecas
 void cria_pecas(peca p[28]){
-    //variaveis
     int index = 0;
 
     for(int i=0; i<=6; i++){
@@ -23,6 +22,7 @@ void cria_pecas(peca p[28]){
 
 }
 
+//Reseta os status de todas as pecas do Domino
 void reseta_status(peca p[28]){
     int i;
     for (i = 0; i < 28; ++i) {p[i].status = 0;}
@@ -40,6 +40,7 @@ void embaralhar(peca vet[28], int tamanho){
 	}
 }
 
+//Distribui 7 pecas para o Jogador 1 e 7 pecas para o Jogador 2
 void distribuir_pecas(peca p[28]){
     int i;
     for(i =0; i <7; i++){
@@ -50,6 +51,7 @@ void distribuir_pecas(peca p[28]){
     }
 }
 
+//Analisa de acordo com as regras do Domino que jogador tem a primeira peca e coloca a peca na mesa
 int primeira_peca(peca p[28], mesa *m){
     int i = 0, somaAux;
     while(p[i].status != 1 && p[i].status != 2){i++;}
@@ -91,7 +93,7 @@ int primeira_peca(peca p[28], mesa *m){
     }
 }
 
-
+//Compra uma peca para o Jogador que foi passado no parametro
 int comprar(peca p[28], int jogador){
     int i;
     for(i =0; i<28; i++){
@@ -103,6 +105,7 @@ int comprar(peca p[28], int jogador){
     return 0;
 }
 
+//Recebe uma peca escolhida pelo Jogador colocando ela na mesa se possivel
 int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     int contador = 1, contador_par = 0, contador_impar = 0, i, peca_jogada;
     int lado_impar=0, lado_par=0;
@@ -158,6 +161,7 @@ int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
     else return 0;
 }
 
+//Se a peca escolhida poder ser colocada nos dois lados da mesa coloca a peca no lado da mesa escolhido pelo Jogador
 void coloca_lado_escolhido(mesa *m, peca p[28], int jogador, int escolha, int lado){
     if (lado < 1 || lado > 2){return;}
 
@@ -192,18 +196,21 @@ void coloca_lado_escolhido(mesa *m, peca p[28], int jogador, int escolha, int la
     }
 }
 
+//Troca o lado da peca, lado 1 vira lado 2 e lado 2 vira lado 1
 void trocar_lado_peca(peca *p){
     int aux = p->lado1;
     p->lado1 = p->lado2;
     p->lado2 = aux;
 }
 
+//Troca o turno de Jogada para o outro Jogador
 int trocar_turno(int turno){
     if(turno == 1){
         return 2;
     } else return 1;
 }
 
+//Verifica se algum dos Jogadores venceram a partida
 int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
     int i, pecaJogavel1=0, pecaJogavel2=0, somaJ1=0, somaJ2=0, nPecasJ1=0, nPecasJ2=0;
     for(i = 0; i<28; i++){
@@ -232,6 +239,7 @@ int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
     return 0;
 }
 
+//Verifica se eh possivel jogar uma peca
 int verificar_peca_jogavel(peca p, mesa m){
     int l1 = p.lado1;
     int l2 = p.lado2;
@@ -240,6 +248,7 @@ int verificar_peca_jogavel(peca p, mesa m){
     } else return 0;
 }
 
+//Verifica se ainda ha pecas disponiveis para compra
 int verificar_compra(peca p[28]){
     int i;
     for (i = 0; i < 28; i++) {
