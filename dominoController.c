@@ -52,7 +52,7 @@ int carregar_jogo(peca pecas[28], mesa *m){
     if (fread(&*m, sizeof(struct mesa), 1, fp)  != 1){
         erro_leitura();
     }
-    while (!feof(fp))    //ou (TRUE)
+    while (!feof(fp))
     {
         if (fread(&pecas[i], sizeof(peca), 1, fp)  != 1)
         {
@@ -85,16 +85,22 @@ void menu_jogo(peca p[28],mesa *m){
       opc = jogo_menu();
 
       switch (opc) {
-          case '1':
+          case '1':                 //Jogador escolhe um peca para jogar
               jogada = opc_jogada();
-              aux_jogada = verificar_jogada(m, p, m->turno, jogada);
-              if (jogada){
+
+              if (jogada){          //verifica se o jogador nao escolheu 0 (opcao para desistir da jogada)
+                  aux_jogada = verificar_jogada(m, p, m->turno, jogada);
+
+                  /*verifica se a peca pode ser colocada nos dois lados da mesa, entrando no else quando a jogada eh
+                   valida e pode apenas ser colocada em um lado  da mesa ou quando a jogada eh invalida */
                   if(aux_jogada == 2){
                       limpar_buffer();
                       lado_escolhido = escolher_lado();
+
                       coloca_lado_escolhido(m, p, m->turno, jogada, lado_escolhido);
                       if (lado_escolhido == 1 || lado_escolhido == 2){jogada_sucedida(1);}
-                  } else jogada_sucedida(aux_jogada);
+                  }
+                  else jogada_sucedida(aux_jogada);
               }
               break;
 

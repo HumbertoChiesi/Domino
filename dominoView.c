@@ -84,7 +84,7 @@ void imprime_mesa(peca p[28], int jogador){
     printf("\nPecas Jogador %d: ", jogador);
     for(i =0; i<28; i++){
         if(p[i].status == jogador){
-            printf("%2d-[%d|%d] ", jogador,p[i].lado1, p[i].lado2);
+            printf("%2d-[%d|%d] ", indice,p[i].lado1, p[i].lado2);
             indice += 1;
         }
     }

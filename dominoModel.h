@@ -16,20 +16,19 @@ Descricao: Arquivo de biblioteca com as funcoes disponiveis para o model. Parte 
 
 
 struct pecas{
-        int lado1;
-        int lado2;
-        int status; //0 esta disponivel para compra //1 esta com o primeiro jogador //2 esta com o segundo jogador //3 esta no centro da mesa
+        int lado1;              //valor do lado 1 da peca
+        int lado2;              //valor do lado 2 da peca
+        int status;             //indica onde a peca esta no jogo(Mesa, Baralho, Jogador 1 ou 2)
 };
 
 typedef struct pecas peca;
 
 struct mesa{
-
-        int lado_par;
-        int lado_impar;
-        int njogadores;
-        int jogador_vantagem;
-        int turno;
+        int lado_par;           //que valor esta no lado par da mesa (ponta direita da mesa)
+        int lado_impar;         //que valor esta no lado impar da mesa (ponta esquerda da mesa)
+        int njogadores;         //numero de jogadores do jogo
+        int jogador_vantagem;   //qual jogador (1 ou 2) jogou a primeira peca no jogo
+        int turno;              //indica de qual Jogador eh o turno
 };
 
 typedef struct mesa mesa;
