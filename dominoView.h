@@ -22,7 +22,7 @@ void imprimir_regras();
 
 void jogada_sucedida(int jogada);
 
-void vitoria(int jogador);
+void vitoria(int jogador, peca p[28]);
 
 void erro_comprar(int n);
 

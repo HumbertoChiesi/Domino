@@ -141,8 +141,41 @@ void imprimir_regras(){
 }
 
 //Funcao imprime mensagem de vitoria
-void vitoria(int jogador){
-    printf("\n===========================\nJogador %d venceu, Parabens!!\n===========================\n", jogador);
+void vitoria(int jogador, peca p[28]){
+    int somaJ1, somaJ2, i;
+    if (jogador < 0){
+        printf("\n=====================================================\nJogador %d jogou sua ultima peca e venceu, Parabens!!"
+               "\n=====================================================\n", jogador*-1);
+    } else{
+        if (jogador % 2 == 0){
+            somaJ1 = (jogador/2)/1000;
+            somaJ2 = (jogador/2)%1000;
+            printf("\n=============================================\nJogador 1 venceu por menos pontos, Parabens!!"
+                   "\n\nJogador 1: %d\n", somaJ1);
+            for (i = 0;i<28; i++) {
+                if (p[i].status == 1){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
+            }
+            printf("\n\nJogador 2: %d\n",somaJ2);
+            for (i = 0;i<28; i++) {
+                if (p[i].status == 2){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
+            }
+            printf("\n=============================================\n");
+
+        } else{
+            somaJ1 = ((jogador-1)/2)/1000;
+            somaJ2 = ((jogador-1)/2)%1000;
+            printf("\n=============================================\nJogador 2 venceu por menos pontos, Parabens!!"
+                   "\n\nJogador 1: %d\n", somaJ1);
+            for (i = 0;i<28; i++) {
+                if (p[i].status == 1){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
+            }
+            printf("\n\nJogador 2: %d\n",somaJ2);
+            for (i = 0;i<28; i++) {
+                if (p[i].status == 2){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
+            }
+            printf("\n=============================================\n");
+        }
+    }
 }
 
 //Funcao imprime sucesso ou falha da compra de uma peca

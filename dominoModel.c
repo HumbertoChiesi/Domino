@@ -229,12 +229,12 @@ int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
             }
         }
     }
-    if(somaJ1 == 0 && nPecasJ1 == 0){return 1;}
-    if(somaJ2 == 0 && nPecasJ2 == 0){return 2;}
+    if(somaJ1 == 0 && nPecasJ1 == 0){return -1;}
+    if(somaJ2 == 0 && nPecasJ2 == 0){return -2;}
     if ((pecaJogavel1+pecaJogavel2)==0 && verificar_compra(p) == 0){
-        if (somaJ1<somaJ2){return 1;}
-        if(somaJ2<somaJ1){return 2;}
-        if(somaJ1==somaJ2){return jogadorVantagem;}
+        if (somaJ1<somaJ2){return (somaJ1*1000 + somaJ2)*2;}
+        if(somaJ2<somaJ1){return (somaJ1*1000 + somaJ2)*2+1;}
+        if(somaJ1==somaJ2){return (somaJ1*1000 + somaJ2)*2 + (jogadorVantagem-1);}
     }
     return 0;
 }

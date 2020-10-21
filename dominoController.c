@@ -78,7 +78,7 @@ void menu_jogo(peca p[28],mesa *m){
     do{
       //verifica se algum jogador ganhou a partida quebrando o loop se verdadeiro
       verificar_fim = verificar_vitoria(p, *m, m->jogador_vantagem);
-      if (verificar_fim){vitoria(verificar_fim); break;}
+      if (verificar_fim){vitoria(verificar_fim, p); break;}
 
       if (m->njogadores == 1 && m->turno == 2){
           mensagem_computador(jogada_computador(m, p), p);
