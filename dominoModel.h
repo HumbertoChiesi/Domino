@@ -55,6 +55,8 @@ int trocar_turno(int turno);
 
 int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem);
 
+int jogada_computador(mesa *m, peca p[28]);
+
 int verificar_peca_jogavel(peca p, mesa m);
 
 void reseta_status(peca p[28]);

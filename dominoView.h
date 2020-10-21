@@ -16,7 +16,7 @@ void erro();
 
 void imprime_mesa(peca p[28], int jogador);
 
-char jogo_menu();
+int jogo_menu();
 
 void imprimir_regras();
 
@@ -39,5 +39,7 @@ void erro_abrir_arquivo();
 void erro_leitura();
 
 void erro_gravacao();
+
+void mensagem_computador(int jogada, peca p[28]);
 
 #endif 

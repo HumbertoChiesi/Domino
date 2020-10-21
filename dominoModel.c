@@ -239,6 +239,27 @@ int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
     return 0;
 }
 
+int jogada_computador(mesa *m, peca p[28]){
+    int i, opc = 0, aux;
+    for (i = 0;i<28; i++) {
+        if (p[i].status == 2){
+            opc++;
+            aux = verificar_jogada(m, p, 2, opc);
+            if (aux == 1){
+                return i * 10;
+            }
+            else if (aux == 2){
+                coloca_lado_escolhido(m, p, 2, opc, 1);
+                return i * 10;
+            }
+        }
+    }
+
+    if (comprar(p, 2)){
+        return 1;
+    } else return 2;
+}
+
 //Verifica se eh possivel jogar uma peca
 int verificar_peca_jogavel(peca p, mesa m){
     int l1 = p.lado1;

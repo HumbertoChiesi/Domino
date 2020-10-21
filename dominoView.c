@@ -92,10 +92,10 @@ void imprime_mesa(peca p[28], int jogador){
 }
 
 //Funcao imprime menu de opcoes do Jogador e devolve a opcao escolhida
-char jogo_menu(){
-    char aux;
+int jogo_menu(){
+    int aux;
     printf("\n(1) - Jogar\n(2) - Comprar\n(3) - Passar\n(4) - Voltar\nOpcao:");
-    aux = getchar();
+    scanf("%d", &aux);
     return aux;
 }
 
@@ -179,4 +179,16 @@ void erro_leitura(){
 //Funcao imprime mensagem de erro ao nao poder gravar o arquivo
 void erro_gravacao(){
     printf("Erro na gravacao do arquivo");
+}
+
+void mensagem_computador(int jogada, peca p[28]){
+    if (jogada == 1){
+        printf("\n==> Computador comprou uma peca!\n");
+    }
+    else if (jogada == 2){
+        printf("\n==> Nada a comprar, o computador passou a vez!\n");
+    }
+    else {
+        printf("\n==> O computador jogou a peca [%d|%d] !\n", p[jogada/10].lado1, p[jogada/10].lado2);
+    }
 }

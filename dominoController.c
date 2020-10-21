@@ -70,7 +70,7 @@ int carregar_jogo(peca pecas[28], mesa *m){
 //menu do jogo Domino
 void menu_jogo(peca p[28],mesa *m){
     //inicializacao das variaveis
-    char opc;
+    int opc = -1;
     int jogada, lado_escolhido, aux_jogada;
     int verificar_fim;
 
@@ -80,12 +80,17 @@ void menu_jogo(peca p[28],mesa *m){
       verificar_fim = verificar_vitoria(p, *m, m->jogador_vantagem);
       if (verificar_fim){vitoria(verificar_fim); break;}
 
+      if (m->njogadores == 1 && m->turno == 2){
+          mensagem_computador(jogada_computador(m, p), p);
+          continue;
+      }
+
       imprime_mesa(p, m->turno);
       limpar_buffer();
       opc = jogo_menu();
 
       switch (opc) {
-          case '1':                 //Jogador escolhe um peca para jogar
+          case 1:                 //Jogador escolhe um peca para jogar
               jogada = opc_jogada();
 
               if (jogada){          //verifica se o jogador nao escolheu 0 (opcao para desistir da jogada)
@@ -99,28 +104,27 @@ void menu_jogo(peca p[28],mesa *m){
 
                       coloca_lado_escolhido(m, p, m->turno, jogada, lado_escolhido);
                       if (lado_escolhido == 1 || lado_escolhido == 2){jogada_sucedida(1);}
-                  }
-                  else jogada_sucedida(aux_jogada);
+                  } else jogada_sucedida(aux_jogada);
               }
               break;
 
-          case '2':                 //Compra uma peca se possivel
+          case 2:                 //Compra uma peca se possivel
               erro_comprar(comprar(p, m->turno));
               break;
 
-          case '3':                 //Passa o turno se nao ha mais pecas disponiveis para compra
+          case 3:                 //Passa o turno se nao ha mais pecas disponiveis para compra
               if (verificar_compra(p) == 0){m->turno = trocar_turno(m->turno);}
               else erro_passar_turno();
               break;
 
-          case '4':                 //quebra o loop e volta ao menu inicial
+          case 4:                 //quebra o loop e volta ao menu inicial
               break;
 
           default:                  //Pega qualquer opcao invalida dada pelo usuario
               erro();
               break;
       }
-    }while(opc != '4');
+    }while(opc != 4);
 }
 
 //menu inicial do Domino
