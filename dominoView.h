@@ -30,6 +30,8 @@ int opc_jogada();
 
 void erro_passar_turno();
 
+void primeira_jogada(int jogador);
+
 void erro_retomar_jogo();
 
 int escolher_lado();

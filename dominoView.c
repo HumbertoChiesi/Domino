@@ -120,6 +120,10 @@ void erro_passar_turno(){
     printf("\n==>Passagem de turno somente quando nao ha mais pecas disponiveis para compra!\n");
 }
 
+void primeira_jogada(int jogador){
+    printf("\n==> O Jogador %d fez a primeira jogada!\n", jogador);
+}
+
 //Funcao imprime as regras do Domino
 void imprimir_regras(){
     printf("------------------------------------------------------------------------------------------------------------\n");
@@ -150,7 +154,7 @@ void vitoria(int jogador, peca p[28]){
         if (jogador % 2 == 0){
             somaJ1 = (jogador/2)/1000;
             somaJ2 = (jogador/2)%1000;
-            printf("\n=============================================\nJogador 1 venceu por menos pontos, Parabens!!"
+            printf("\n=============================================\nSem mais pecas disponiveis para compra, Jogador 1 venceu por menos pontos, Parabens!!"
                    "\n\nJogador 1: %d\n", somaJ1);
             for (i = 0;i<28; i++) {
                 if (p[i].status == 1){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
@@ -164,7 +168,7 @@ void vitoria(int jogador, peca p[28]){
         } else{
             somaJ1 = ((jogador-1)/2)/1000;
             somaJ2 = ((jogador-1)/2)%1000;
-            printf("\n=============================================\nJogador 2 venceu por menos pontos, Parabens!!"
+            printf("\n=============================================\nSem mais pecas disponiveis para compra, Jogador 2 venceu por menos pontos, Parabens!!"
                    "\n\nJogador 1: %d\n", somaJ1);
             for (i = 0;i<28; i++) {
                 if (p[i].status == 1){printf(" [%d|%d] ", p[i].lado1, p[i].lado2);}
@@ -222,6 +226,6 @@ void mensagem_computador(int jogada, peca p[28]){
         printf("\n==> Nada a comprar, o computador passou a vez!\n");
     }
     else {
-        printf("\n==> O computador jogou a peca [%d|%d] !\n", p[jogada/10].lado1, p[jogada/10].lado2);
+        printf("\n==> O computador jogou a peca [%d|%d]!\n", p[jogada/10].lado1, p[jogada/10].lado2);
     }
 }

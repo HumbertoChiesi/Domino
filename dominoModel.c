@@ -81,7 +81,7 @@ int primeira_peca(peca p[28], mesa *m){
         p[pm].status=3;
         m->lado_impar =p[pm].lado1;
         m->lado_par=p[pm].lado2;
-        return pm;
+        return m->jogador_vantagem;     //retorna qual jogador(1 ou 2) tem vantagem
     }
     else{
         m->turno = trocar_turno(p[pmi].status);
@@ -89,7 +89,7 @@ int primeira_peca(peca p[28], mesa *m){
         p[pmi].status=3;
         m->lado_impar =p[pmi].lado1;
         m->lado_par=p[pmi].lado2;
-        return pmi;
+        return m->jogador_vantagem;     //retorna qual jogador(1 ou 2) tem vantagem
     }
 }
 
@@ -99,10 +99,10 @@ int comprar(peca p[28], int jogador){
     for(i =0; i<28; i++){
         if(p[i].status == 0){
             p[i].status = jogador;
-            return 1;
+            return 1;   //retorna 1 se foi possivel comprar a peca
         }
     }
-    return 0;
+    return 0;           //retorna 0 se nao foi possivel comprar a peca
 }
 
 //Recebe uma peca escolhida pelo Jogador colocando ela na mesa se possivel
@@ -149,16 +149,16 @@ int verificar_jogada(mesa *m, peca p[28], int jogador, int escolha){
             p[peca_jogada].status = 4 + (2*contador_par);
             m->lado_par = p[peca_jogada].lado2;
             m->turno = trocar_turno(jogador);
-            return 1;
+            return 1;   //retorna 1 se a jogada eh valida e a peca foi colocada na mesa
         } else{
             p[peca_jogada].status = 5 + (2*contador_impar);
             m->lado_impar = p[peca_jogada].lado1;
             m->turno = trocar_turno(jogador);
-            return 1;
+            return 1;   //retorna 1 se a jogada eh valida e a peca foi colocada na mesa
         }
     }
-    else if ((lado_impar+lado_par)==2){return 2;}
-    else return 0;
+    else if ((lado_impar+lado_par)==2){return 2;}       //retorna 2 se a peca pode ser jogada nos 2 lados da mesa
+    else return 0;      //retorna 0 se nao eh uma jogada valida
 }
 
 //Se a peca escolhida poder ser colocada nos dois lados da mesa coloca a peca no lado da mesa escolhido pelo Jogador
@@ -206,8 +206,8 @@ void trocar_lado_peca(peca *p){
 //Troca o turno de Jogada para o outro Jogador
 int trocar_turno(int turno){
     if(turno == 1){
-        return 2;
-    } else return 1;
+        return 2;       //retorna 2 se o turno era 1
+    } else return 1;    //retorna 1 se o turno era 2
 }
 
 //Verifica se algum dos Jogadores venceram a partida
@@ -229,14 +229,14 @@ int verificar_vitoria(peca p[28], mesa m, int jogadorVantagem){
             }
         }
     }
-    if(somaJ1 == 0 && nPecasJ1 == 0){return -1;}
-    if(somaJ2 == 0 && nPecasJ2 == 0){return -2;}
+    if(somaJ1 == 0 && nPecasJ1 == 0){return -1;}        //retorna -1 se o jogador 1 ganhou a partida
+    if(somaJ2 == 0 && nPecasJ2 == 0){return -2;}        //retorna -2 se o jogador 2 ganhou a partida
     if ((pecaJogavel1+pecaJogavel2)==0 && verificar_compra(p) == 0){
-        if (somaJ1<somaJ2){return (somaJ1*1000 + somaJ2)*2;}
-        if(somaJ2<somaJ1){return (somaJ1*1000 + somaJ2)*2+1;}
-        if(somaJ1==somaJ2){return (somaJ1*1000 + somaJ2)*2 + (jogadorVantagem-1);}
+        if (somaJ1<somaJ2){return (somaJ1*1000 + somaJ2)*2;}    //retorna um numero que indica que o jogador 1 ganhou e a pontuacao de cada jogador
+        if(somaJ2<somaJ1){return (somaJ1*1000 + somaJ2)*2+1;}   //retorna um numero que indica que o jogador 2 ganhou e a pontuacao de cada jogador
+        if(somaJ1==somaJ2){return (somaJ1*1000 + somaJ2)*2 + (jogadorVantagem-1);}      //retorna um numero que indica que o jogador com vantagem ganhou e a pontuacao de cada jogador
     }
-    return 0;
+    return 0;       //retorna 0 se nenhum jogador ganhou o jogo ainda
 }
 
 int jogada_computador(mesa *m, peca p[28]){
@@ -246,18 +246,21 @@ int jogada_computador(mesa *m, peca p[28]){
             opc++;
             aux = verificar_jogada(m, p, 2, opc);
             if (aux == 1){
-                return i * 10;
+                return i * 10;      //retorna o indice da peca jogada pelo computador * 10
             }
             else if (aux == 2){
                 coloca_lado_escolhido(m, p, 2, opc, 1);
-                return i * 10;
+                return i * 10;      //retorna o indice da peca jogada pelo computador * 10
             }
         }
     }
 
     if (comprar(p, 2)){
-        return 1;
-    } else return 2;
+        return 1;       //retorna 1 se o computador comprou uma peca
+    } else {
+        m->turno = 1;
+        return 2;       //retorna 2 se o computador passa o turno
+    }
 }
 
 //Verifica se eh possivel jogar uma peca
@@ -265,15 +268,15 @@ int verificar_peca_jogavel(peca p, mesa m){
     int l1 = p.lado1;
     int l2 = p.lado2;
     if(l1 == m.lado_impar || l1 == m.lado_par || l2 == m.lado_impar || l2 == m.lado_par){
-        return 1;
-    } else return 0;
+        return 1;       //retorna 1 se a peca eh jogavel
+    } else return 0;    //retonra 0 se nao eh possivel jogar a peca
 }
 
 //Verifica se ainda ha pecas disponiveis para compra
 int verificar_compra(peca p[28]){
     int i;
     for (i = 0; i < 28; i++) {
-        if (p[i].status == 0){return 1;}
+        if (p[i].status == 0){return 1;}    //retorna 1 se ha pecas disponiveis para compra
     }
-    return 0;
+    return 0;       //retorna 0 se nao ha mais pecas disponiveis para compra
 }

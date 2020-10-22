@@ -80,8 +80,8 @@ void menu_jogo(peca p[28],mesa *m){
       verificar_fim = verificar_vitoria(p, *m, m->jogador_vantagem);
       if (verificar_fim){vitoria(verificar_fim, p); break;}
 
-      if (m->njogadores == 1 && m->turno == 2){
-          mensagem_computador(jogada_computador(m, p), p);
+      if (m->njogadores == 1 && m->turno == 2){     //verifica se eh o turno do computador
+          mensagem_computador(jogada_computador(m, p), p);      //jogada do computador + mensagem dizendo que jogada foi feita
           continue;
       }
 
@@ -94,16 +94,15 @@ void menu_jogo(peca p[28],mesa *m){
               jogada = opc_jogada();
 
               if (jogada){          //verifica se o jogador nao escolheu 0 (opcao para desistir da jogada)
+
                   aux_jogada = verificar_jogada(m, p, m->turno, jogada);
 
-                  /*verifica se a peca pode ser colocada nos dois lados da mesa, entrando no else quando a jogada eh
-                   valida e pode apenas ser colocada em um lado  da mesa ou quando a jogada eh invalida */
-                  if(aux_jogada == 2){
+                  if(aux_jogada == 2){      //verifica se a peca escolhida pode ser colocada nos dois lados da mesa
                       limpar_buffer();
                       lado_escolhido = escolher_lado();
 
                       coloca_lado_escolhido(m, p, m->turno, jogada, lado_escolhido);
-                      if (lado_escolhido == 1 || lado_escolhido == 2){jogada_sucedida(1);}
+                      if (lado_escolhido == 1 || lado_escolhido == 2){jogada_sucedida(1);}  //verifica se o lado escolhido eh valido
                   } else jogada_sucedida(aux_jogada);
               }
               break;
@@ -113,7 +112,7 @@ void menu_jogo(peca p[28],mesa *m){
               break;
 
           case 3:                 //Passa o turno se nao ha mais pecas disponiveis para compra
-              if (verificar_compra(p) == 0){m->turno = trocar_turno(m->turno);}
+              if (verificar_compra(p) == 0){m->turno = trocar_turno(m->turno);}     //verifica se nao ha mais pecas para compra
               else erro_passar_turno();
               break;
 
@@ -150,7 +149,7 @@ void executar_domino(){
                 reseta_status(pecas);
                 embaralhar(pecas, 28);
                 distribuir_pecas(pecas);
-                primeira_peca(pecas, &m);
+                primeira_jogada(primeira_peca(pecas, &m));
                 menu_jogo(pecas, &m);
                 break;
 
@@ -160,12 +159,12 @@ void executar_domino(){
                 reseta_status(pecas);
                 embaralhar(pecas, 28);
                 distribuir_pecas(pecas);
-                primeira_peca(pecas, &m);
+                primeira_jogada(primeira_peca(pecas, &m));
                 menu_jogo(pecas, &m);
                 break;
 
             case '3':           //Retoma o jogo interrompido se existente
-                if (aux){menu_jogo(pecas, &m);}
+                if (aux){menu_jogo(pecas, &m);}     //verifica se algum jogo ja foi iniciado previamente
                 else erro_retomar_jogo();
                 break;
 
@@ -174,7 +173,7 @@ void executar_domino(){
                 break;
 
             case '5':           //Salva o jogo atual se existente
-                if (aux){gravar_jogo(pecas, &m);}
+                if (aux){gravar_jogo(pecas, &m);}   //verifica se algum jogo ja foi iniciado previamente
                 else erro_retomar_jogo();
                 break;
 
